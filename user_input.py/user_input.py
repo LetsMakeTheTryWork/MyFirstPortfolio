@@ -1,6 +1,6 @@
 
 
-name= input("Enter user name:");
+name= input("Enter user name:")
 
 age= input("Enter your age:")
 
