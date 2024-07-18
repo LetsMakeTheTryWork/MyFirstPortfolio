@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expense Tracker - Add Expense</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Add New Expense</h1>
+    </header>
+
+    <main>
+        <form action="add_expense.php" method="post">
+            <!-- Form fields for adding expense -->
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required><br><br>
+
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" name="amount" step="0.01" required><br><br>
+
+            <label for="description">Description:</label><br>
+            <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
+
+            <button type="submit">Add Expense</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Expense Tracker App. All rights reserved.</p>
+    </footer>
+</body>
+</html>
