@@ -1,0 +1,321 @@
+
+<html>
+<head>
+	<title>Slide Navbar</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div class="main">  	
+		<input type="checkbox" id="chk" aria-hidden="true">
+
+			<div class="signup" onsubmit="return handleSignup(event)">
+				<form>
+					<label for="chk" aria-hidden="true">Sign up</label>
+					<input type="text" name="txt" placeholder="Username" required="">
+					<input type="email" name="email" placeholder="Email" required="">
+          <input type="number" name="broj" placeholder="BrojTelefona" required="">
+					<input type="password" name="pswd" placeholder="Password" required="">
+                    <a class='lf--forgot' href='#'>Forget Password?</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    <a class='Logout?' href='#'>Logout?</a>
+                </div>
+                
+                <form id="signup" onsubmit="return handleSignup(event)">
+        
+                <div class="login" onsubmit="return handleLogin(event)">
+                    <form>
+                        <label for="chk" aria-hidden="true">Login</label>
+                        <input type="email" name="email" placeholder="Email" required="">
+                        <input type="password" name="pswd" placeholder="Password" required="">
+                        <button>Login</button>
+
+                        <a class='lf--forgot' href='#'>Forgot password?</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        <a class='lf--forgot' href='#'>Logout?</a>
+                    </form>
+                </div>
+        </div>
+         <!--Shopping Cart-->
+         <div class="cart">
+            <h2>Shopping Cart</h2>
+            <div class="cart-items"></div>
+            <div class="cart-total">
+                Total: <span id="cart-total">0.00</span>
+            </div>
+            <button id="checkout-button">Checkout</button>
+        </div>
+
+        <!-- Products Section-->
+        <div class="products">
+            <h2>Products</h2>
+            <div class="product" data-price="10.00">
+                <h3>Product 1</h3>
+                <p>$10.00</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-price="20.00">
+                <h3>Product 2</h3>
+                <p>$20.00</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-price="30.00">
+                <h3>Product 3</h3>
+                <p>$30.00</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle cart functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const cartItemsContainer = document.querySelector('.cart-items');
+            const cartTotalElement = document.getElementById('cart-total');
+            const checkoutButton = document.getElementById('checkout-button');
+            
+            let cart = [];
+
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function () {
+                    const product = this.closest('.product');
+                    const price = parseFloat(product.getAttribute('data-price'));
+                    const name = product.querySelector('h3').textContent;
+
+                    cart.push({ name, price });
+                    updateCart();
+                });
+            });
+
+            function updateCart() {
+                cartItemsContainer.innerHTML = '';
+                let total = 0;
+
+                cart.forEach(item => {
+                    total += item.price;
+                    const itemElement = document.createElement('div');
+                    itemElement.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+                    cartItemsContainer.appendChild(itemElement);
+                });
+
+                cartTotalElement.textContent = total.toFixed(2);
+            }
+
+            checkoutButton.addEventListener('click', function () {
+                alert('Proceeding to checkout');
+                // Implement checkout logic here
+            });
+        });
+
+        </script>
+    </body>
+    </html>
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up and Login</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+  <!--
+    <div class="container">
+       Sign-Up Form ->
+        <div id="signup-form">
+            <h2>Sign Up</h2>
+            <form id="signup" onsubmit="return handleSignup(event)">
+                <div>
+                    <label for="signup-name">Name:</label>
+                    <input type="text" id="signup-name" name="name">
+                    <span id="signup-name-error" class="error"></span>
+                </div>
+                <div>
+                    <label for="signup-address">Address:</label>
+                    <input type="text" id="signup-address" name="address">
+                    <span id="signup-address-error" class="error"></span>
+                </div>
+                <div>
+                    <label for="signup-email">Email:</label>
+                    <input type="email" id="signup-email" name="email">
+                    <span id="signup-email-error" class="error"></span>
+                </div>
+                <div>
+                    <label for="signup-password">Password:</label>
+                    <input type="password" id="signup-password" name="password">
+                    <span id="signup-password-error" class="error"></span>
+                </div>
+                <div>
+                    <label for="signup-subject">Subject:</label>
+                    <select id="signup-subject" name="subject">
+                        <option value="">Select your course</option>
+                        <option value="course1">Course 1</option>
+                        <option value="course2">Course 2</option>
+                    </select>
+                    <span id="signup-subject-error" class="error"></span>
+                </div>
+                <div>
+                    <input type="checkbox" id="signup-agree" name="agree">
+                    <label for="signup-agree">I agree to the terms</label>
+                    <span id="signup-agree-error" class="error"></span>
+                </div>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+
+        <!-- Login Form ->
+        <div id="login-form">
+            <h2>Login</h2>
+            <form id="login" onsubmit="return handleLogin(event)">
+                <div>
+                    <label for="login-email">Email:</label>
+                    <input type="email" id="login-email" name="email">
+                    <span id="login-email-error" class="error"></span>
+                </div>
+                <div>
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" name="password">
+                    <span id="login-password-error" class="error"></span>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function validateSignupForm() {
+            const name = document.getElementById("signup-name").value;
+            const address = document.getElementById("signup-address").value;
+            const email = document.getElementById("signup-email").value;
+            const password = document.getElementById("signup-password").value;
+            const subject = document.getElementById("signup-subject").value;
+            const agree = document.getElementById("signup-agree").checked;
+            const nameError = document.getElementById("signup-name-error");
+            const addressError = document.getElementById("signup-address-error");
+            const emailError = document.getElementById("signup-email-error");
+            const passwordError = document.getElementById("signup-password-error");
+            const subjectError = document.getElementById("signup-subject-error");
+            const agreeError = document.getElementById("signup-agree-error");
+
+            nameError.textContent = "";
+            addressError.textContent = "";
+            emailError.textContent = "";
+            passwordError.textContent = "";
+            subjectError.textContent = "";
+            agreeError.textContent = "";
+
+            let isValid = true;
+
+            if (name === "" || /\d/.test(name)) {
+                nameError.textContent = "Please enter your name properly.";
+                isValid = false;
+            }
+
+            if (address === "") {
+                addressError.textContent = "Please enter your address.";
+                isValid = false;
+            }
+
+            if (email === "" || !email.includes("@")) {
+                emailError.textContent = "Please enter a valid email address.";
+                isValid = false;
+            }
+
+            if (password === "" || password.length < 6) {
+                passwordError.textContent = "Please enter a password with at least 6 characters.";
+                isValid = false;
+            }
+
+            if (subject === "") {
+                subjectError.textContent = "Please select your course.";
+                isValid = false;
+            }
+
+            if (!agree) {
+                agreeError.textContent = "Please agree to the terms.";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function validateLoginForm() {
+            const email = document.getElementById("login-email").value;
+            const password = document.getElementById("login-password").value;
+            const emailError = document.getElementById("login-email-error");
+            const passwordError = document.getElementById("login-password-error");
+
+            emailError.textContent = "";
+            passwordError.textContent = "";
+
+            let isValid = true;
+
+            if (email === "" || !email.includes("@")) {
+                emailError.textContent = "Please enter a valid email address.";
+                isValid = false;
+            }
+
+            if (password === "" || password.length < 6) {
+                passwordError.textContent = "Please enter a valid password.";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function handleSignup(event) {
+            event.preventDefault(); // Prevent the default form submission
+            
+            if (validateSignupForm()) {
+                const form = document.getElementById('signup');
+                const formData = new FormData(form);
+
+                fetch('/register', { // Update this URL to your backend endpoint
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = '/app'; // Redirect to your app
+                    } else {
+                        alert('Registration failed: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault(); // Prevent the default form submission
+            
+            if (validateLoginForm()) {
+                const form = document.getElementById('login');
+                const formData = new FormData(form);
+
+                fetch('/login', { // Update this URL to your backend login endpoint
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = '/app'; // Redirect to your app
+                    } else {
+                        alert('Login failed: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
+            }
+        }
+    </script>
+</body>
+</html>
+-->
